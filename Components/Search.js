@@ -6,12 +6,9 @@ import {
   View,
   TextInput,
   Button,
-  Text,
-  FlatList,
   ActivityIndicator,
   SafeAreaView,
 } from 'react-native';
-import FilmItem from './FilmItem';
 import FilmList from './FilmList';
 import {getFilmsFromApiWithSearchedText} from '../API/TMDBApi';
 
