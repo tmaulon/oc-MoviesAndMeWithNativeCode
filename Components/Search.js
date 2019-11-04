@@ -1,6 +1,6 @@
 // Components/Search.js
 
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   View,
@@ -9,37 +9,37 @@ import {
   Text,
   FlatList,
   ActivityIndicator,
-  SafeAreaView
-} from "react-native";
-import FilmItem from "./FilmItem";
-import FilmList from "./FilmList";
-import { getFilmsFromApiWithSearchedText } from "../API/TMDBApi";
+  SafeAreaView,
+} from 'react-native';
+import FilmItem from './FilmItem';
+import FilmList from './FilmList';
+import {getFilmsFromApiWithSearchedText} from '../API/TMDBApi';
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
-    this.searchedText = "";
+    this.searchedText = '';
     this.page = 0;
     this.totalPages = 0;
     this.state = {
       films: [],
-      isLoading: false
+      isLoading: false,
     };
     this._loadFilms = this._loadFilms.bind(this);
   }
 
   _loadFilms() {
     if (this.searchedText.length > 0) {
-      this.setState({ isLoading: true });
+      this.setState({isLoading: true});
       getFilmsFromApiWithSearchedText(this.searchedText, this.page + 1).then(
         data => {
           this.page = data.page;
           this.totalPages = data.total_pages;
           this.setState({
             films: [...this.state.films, ...data.results],
-            isLoading: false
+            isLoading: false,
           });
-        }
+        },
       );
     }
   }
@@ -53,16 +53,16 @@ class Search extends React.Component {
     this.totalPages = 0;
     this.setState(
       {
-        films: []
+        films: [],
       },
       () => {
         this._loadFilms();
-      }
+      },
     );
   }
 
   _displayDetailForFilm = idFilm => {
-    this.props.navigation.navigate("FilmDetail", { idFilm: idFilm });
+    this.props.navigation.navigate('FilmDetail', {idFilm: idFilm});
   };
 
   _displayLoading() {
@@ -76,6 +76,8 @@ class Search extends React.Component {
   }
 
   render() {
+    console.log('test chrome developer tools');
+
     return (
       <SafeAreaView style={styles.main_container}>
         <View style={styles.main_container}>
@@ -103,25 +105,25 @@ class Search extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    flex: 1
+    flex: 1,
   },
   textinput: {
     marginLeft: 5,
     marginRight: 5,
     height: 50,
-    borderColor: "#000000",
+    borderColor: '#000000',
     borderWidth: 1,
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   loading_container: {
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     right: 0,
     top: 100,
     bottom: 0,
-    alignItems: "center",
-    justifyContent: "center"
-  }
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export default Search;
